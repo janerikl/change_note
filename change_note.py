@@ -1,5 +1,5 @@
 # change note
-from tkinter import Tk, Label, Button, Frame, LEFT, RIGHT, TOP, BOTH, BOTTOM, N, Text, Menu, filedialog
+from tkinter import Tk, Label, Button, Frame, LEFT, RIGHT, TOP, BOTH, BOTTOM, N, Text, Menu, filedialog, END
 
 
 class ChangeNote(object):
@@ -35,11 +35,28 @@ class ChangeNote(object):
     def get_text(self):
         return self.text.get("1.0", 'end-1c')
 
+    def set_text(self, value):
+        self.text.delete('1.0', END)
+        self.text.insert("end-1c", value)
+
     def new_file(self):
         pass
 
     def open_file(self):
-        # TODO
+
+        path = filedialog.askopenfilename(
+            defaultextension=".xml",
+            filetypes=(("xml file", "*.xml"), ("All Files", "*.*")))
+
+        if not path:
+            return False
+
+        self.path = path
+
+        with open(self.path, 'r') as file:
+            data = file.read().replace('\n', '')
+
+        self.set_text(data)
         return True
 
     def open_template(self):
