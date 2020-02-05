@@ -6,7 +6,7 @@ class ChangeNote(object):
 
     def __init__(self, master):
         self.master = master
-        master.title("Simple GUI")
+        master.title("Simple Editor")
 
         # menubar
         menubar = Menu(master)
@@ -39,6 +39,9 @@ class ChangeNote(object):
         self.text.delete('1.0', END)
         self.text.insert("end-1c", value)
 
+    def set_title(self, value):
+        self.master.title(value)
+
     def new_file(self):
         pass
 
@@ -57,6 +60,7 @@ class ChangeNote(object):
             data = file.read().replace('\n', '')
 
         self.set_text(data)
+        self.set_title(path + " - Simple Editor")
         return True
 
     def open_template(self):
