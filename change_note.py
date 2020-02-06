@@ -8,6 +8,9 @@ class ChangeNote(object):
         self.master = master
         master.title("Simple Editor")
 
+        # bindings
+        root.bind('<Control-s>', self.save)
+
         # menubar
         menubar = Menu(master)
         filemenu = Menu(menubar, tearoff=0)
@@ -67,7 +70,7 @@ class ChangeNote(object):
         # TODO
         pass
 
-    def save(self):
+    def save(self, _event=None):
         txt = self.get_text()
         file = open(self.path, 'w')
         file.write(txt)
